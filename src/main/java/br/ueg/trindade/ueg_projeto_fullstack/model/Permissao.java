@@ -1,10 +1,23 @@
-package br.ueg.trindade.ueg_projeto_fullstack;
+package br.ueg.trindade.ueg_projeto_fullstack.model;
 
+import jakarta.annotation.Generated;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity 
 public class Permissao {
-
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String descricao;
+
+    public Permissao(){
+
+        
+    }
 
     public Permissao(Long id, String nome, String descricao) {
         this.id = id;

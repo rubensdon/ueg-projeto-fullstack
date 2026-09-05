@@ -1,0 +1,9 @@
+2026-09-04 20:34:37.686434-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIOS" not found; SQL statement:
+insert into usuarios (email,nome,senha,username,id) values (?,?,?,?,default) [42102-240]
+2026-09-04 20:36:12.801669-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIOS" not found; SQL statement:
+insert into usuarios(nome,username,senha,email) values('teste','teste1','1234','teste@email') [42102-240]
+2026-09-04 20:41:04.900980-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USUARIOS" not found; SQL statement:
+select u1_0.id,u1_0.email,u1_0.nome,u1_0.senha,u1_0.username from usuarios u1_0 [42102-240]

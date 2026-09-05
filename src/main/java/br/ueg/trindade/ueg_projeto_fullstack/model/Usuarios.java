@@ -1,11 +1,20 @@
-package br.ueg.trindade.ueg_projeto_fullstack;
+package br.ueg.trindade.ueg_projeto_fullstack.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+@Entity 
 public class Usuarios {
 
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String username;
+    @JsonIgnore 
     private String senha;
     private String email;
 
@@ -17,6 +26,15 @@ public class Usuarios {
         this.username = username;
         this.senha = senha;
         this.email = email;
+    }
+
+    public Long getId(){
+        return id;
+    }
+
+    public void setId(Long id){
+
+        this.id = id;
     }
 
     public String getNome() {
