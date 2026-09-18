@@ -5,6 +5,6 @@
         id:number;
         nome:string;
         descricao:string;
-        datacriação:Date;
+        datacriacao:string;
         id_criador:number;
     }
