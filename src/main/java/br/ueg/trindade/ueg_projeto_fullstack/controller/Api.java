@@ -1,9 +1,10 @@
 package br.ueg.trindade.ueg_projeto_fullstack.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,22 +18,23 @@ import br.ueg.trindade.ueg_projeto_fullstack.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:5174")
 public class Api {
     @Autowired 
     private UsuarioRepository usuarioRepository;
 
-    @GetMapping("/usuarios")
+    @GetMapping("/")
     public List<Usuarios> getAllUsuarios() {
         return usuarioRepository.findAll();
     }
 
 
-    @PostMapping("/usuarios")
+    @PostMapping("/")
     public Usuarios createUsuario(@RequestBody Usuarios usuario){
         return usuarioRepository.save(usuario);
     }
 
-    @GetMapping ("/usuarios/{id}")
+    @GetMapping ("/{id}")
     public Usuarios getUsuariosById(@PathVariable Long id){
 
         return usuarioRepository.findById(id)
@@ -40,7 +42,7 @@ public class Api {
     }
 
 
-    @DeleteMapping("/usuarios/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUsuario(@PathVariable Long id) {
     usuarioRepository.deleteById(id);
     }

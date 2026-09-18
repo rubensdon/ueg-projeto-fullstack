@@ -1,6 +1,6 @@
 package br.ueg.trindade.ueg_projeto_fullstack.model;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
