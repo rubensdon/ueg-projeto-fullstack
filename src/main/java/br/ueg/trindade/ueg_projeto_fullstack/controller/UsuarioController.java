@@ -12,49 +12,43 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.ueg.trindade.ueg_projeto_fullstack.model.Usuarios;
-import br.ueg.trindade.ueg_projeto_fullstack.repository.UsuarioRepository;
+import br.ueg.trindade.ueg_projeto_fullstack.service.UsuarioService;
 
-@RestController
-@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:5173")
-public class Api {
+@RestController
+@RequestMapping("/usuarios")
+
+public class UsuarioController {
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioService usuarioService;
 
-    @GetMapping("/")
+    @GetMapping
     public List<Usuarios> getAllUsuarios() {
-        return usuarioRepository.findAll();
+        return usuarioService.listarTodos();
     }
 
-    @PutMapping("/usuarios/{id}")
+    @PutMapping("/{id}")
     public Usuarios updateUsuario(@PathVariable Long id, @RequestBody Usuarios usuarioAtualizado) {
-        Usuarios usuario = usuarioRepository.findById(id)
-
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-        usuario.setNome(usuarioAtualizado.getNome());
-        usuario.setUsername(usuarioAtualizado.getUsername());
-        usuario.setEmail(usuarioAtualizado.getEmail());
-        return usuarioRepository.save(usuario);
+       return  usuarioService.atualizar(id, usuarioAtualizado);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public Usuarios createUsuario(@RequestBody Usuarios usuario) {
-        return usuarioRepository.save(usuario);
+        return usuarioService.criar(usuario);
     }
 
     @GetMapping("/{id}")
     public Usuarios getUsuariosById(@PathVariable Long id) {
 
-        return usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("usuario não encontrado"));
+        return usuarioService.buscarPorId(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteUsuario(@PathVariable Long id) {
-        usuarioRepository.deleteById(id);
+        usuarioService.deletar(id);
     }
 
 }

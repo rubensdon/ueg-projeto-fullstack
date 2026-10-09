@@ -1,4 +1,4 @@
-﻿package br.ueg.trindade.ueg_projeto_fullstack.controller;
+package br.ueg.trindade.ueg_projeto_fullstack.controller;
 
 import java.util.List;
 
@@ -12,46 +12,42 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.ueg.trindade.ueg_projeto_fullstack.model.Permissao;
 import br.ueg.trindade.ueg_projeto_fullstack.repository.PermissaoRepository;
+import br.ueg.trindade.ueg_projeto_fullstack.service.PermissaoService;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/permissoes")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class PermissaoController {
     @Autowired
-    private PermissaoRepository permissaoRepository;
+    private PermissaoService permissaoService;
 
     @GetMapping("/{id}")
-    public Permissao getPermissaoById(@PathVariable Long id) {
-        return permissaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Permissão não encontrada"));
+    public Permissao getPermissaoById(@PathVariable Long id){
+        return permissaoService.buscarPorId(id);
     }
 
-    @GetMapping("/")
-    public List<Permissao> getAllPermissoes() {
-        return permissaoRepository.findAll();
+    @GetMapping
+    public List<Permissao> getAllPermissoes(){
+        return permissaoService.listarTodos();
     }
 
-    @PostMapping("/")
-    public Permissao createPermissao(@RequestBody Permissao permissao) {
-        return permissaoRepository.save(permissao);
+    @PostMapping
+    public Permissao createPermissao(@RequestBody Permissao permissao){
+        return permissaoService.create(permissao);
     }
 
     @PutMapping("/{id}")
     public Permissao updatePermissao(@PathVariable Long id, @RequestBody Permissao dadosPermissao) {
-        Permissao permissao = permissaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Permissão não encontrada"));
-
-        permissao.setNome(dadosPermissao.getNome());
-        permissao.setDescricao(dadosPermissao.getDescricao());
-
-        return permissaoRepository.save(permissao);
+       return  permissaoService.atualizar(id, dadosPermissao);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePermissao(@PathVariable Long id) {
-        permissaoRepository.deleteById(id);
+    public void deletePermissao(@PathVariable Long id){
+        permissaoService.deletar(id);
     }
 }

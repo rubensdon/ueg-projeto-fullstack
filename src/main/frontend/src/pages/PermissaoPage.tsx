@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import permissao from "../services/permissao";
 import type { Permissao } from "../types/Permissao";
-import PermissaoItem from "./PermissaoItem";
-import PermissaoForm from "./PermissaoForms";
+import PermissaoItem from "../components/PermissaoItem";
+import PermissaoForm from "../components/PermissaoForms";
 
 function PermissaoList() {
   const [permissoes, setPermissoes] = useState<Permissao[]>([]);

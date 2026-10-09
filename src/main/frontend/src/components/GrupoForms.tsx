@@ -30,7 +30,7 @@ function GrupoForm({ onGrupoSalvo, GrupoEditando }: GrupoFormProps) {
 		if (GrupoEditando) {
 			await grupo.put(`/grupo/${GrupoEditando.id}`, dados);
 		} else {
-			await grupo.post("/grupo/", dados);
+			await grupo.post("/grupo", dados);
 		}
 
 		onGrupoSalvo();

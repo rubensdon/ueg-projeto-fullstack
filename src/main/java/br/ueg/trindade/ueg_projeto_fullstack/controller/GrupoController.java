@@ -12,54 +12,48 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.ueg.trindade.ueg_projeto_fullstack.model.Grupo;
 import br.ueg.trindade.ueg_projeto_fullstack.repository.GrupoRepository;
+import br.ueg.trindade.ueg_projeto_fullstack.service.GrupoService;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController 
 @RequestMapping("/grupo")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class GrupoController {
 
     @Autowired 
-    private GrupoRepository grupoRepository;
+    private GrupoService grupoService;
 
 
-    @GetMapping("/")
+    @GetMapping
 
     public List<Grupo> getAllGrupos(){
-        return  grupoRepository.findAll();
+        return grupoService.listarTodos();
     }
 
 
     @GetMapping("/{id}")
     public Grupo getGruposById(@PathVariable Long id){
-        return  grupoRepository.findById(id)
-        .orElseThrow(()->new RuntimeException("Grupo não encontrado"));
+        return  grupoService.buscarPorId(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public Grupo createGrupo(@RequestBody Grupo grupo){
 
-        return grupoRepository.save(grupo);
+        return grupoService.criar(grupo);
     }
 
     @PutMapping("/{id}")
     public Grupo updateGrupo(@PathVariable Long id, @RequestBody Grupo dadosGrupo) {
-        Grupo grupo = grupoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Grupo não encontrado"));
-
-        grupo.setNome(dadosGrupo.getNome());
-        grupo.setDescricao(dadosGrupo.getDescricao());
-        grupo.setDatacriacao(dadosGrupo.getDatacriacao());
-        grupo.setIdcriador(dadosGrupo.getIdcriador());
-
-        return grupoRepository.save(grupo);
+       return grupoService.atualizar(id, dadosGrupo);
     }
 
     @DeleteMapping("/{id}")
     public void deleteGrupo(@PathVariable Long id){
-        grupoRepository.deleteById(id);
+        grupoService.deletar(id);
     }
 
 

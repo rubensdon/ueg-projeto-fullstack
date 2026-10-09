@@ -1,6 +1,6 @@
 // src/components/UsuarioForm.tsx
 import { type FormEvent, useState } from "react";
-import api from "../services/api";
+import api from "../services/usuarios";
 import type { Usuario } from "../types/Usuario";
 
 interface UsuarioFormProps {
@@ -10,13 +10,15 @@ interface UsuarioFormProps {
 
 function UsuarioForm({ onUsuarioSalvo, usuarioEditando }: UsuarioFormProps) {
   const [nome, setNome] = useState(usuarioEditando?.nome ?? "");
+  const [senha, setSenha] = useState(usuarioEditando?.senha ?? "");
+
   const [username, setUsername] = useState(usuarioEditando?.username ?? "");
   const [email, setEmail] = useState(usuarioEditando?.email ?? "");
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    const dados = { nome, username, email };
+    const dados = { nome, username, senha, email };
 
     if (usuarioEditando) {
       await api.put(`/usuarios/${usuarioEditando.id}`, dados);
@@ -43,6 +45,11 @@ function UsuarioForm({ onUsuarioSalvo, usuarioEditando }: UsuarioFormProps) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="E-mail"
+      />
+      <input
+        value={senha}
+        onChange={(e) => setSenha(e.target.value)}
+        placeholder="Senha"
       />
       <button type="submit">
         {usuarioEditando ? "Salvar alterações" : "Cadastrar"}
