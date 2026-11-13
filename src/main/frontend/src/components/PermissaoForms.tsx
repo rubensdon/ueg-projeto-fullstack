@@ -1,6 +1,7 @@
 import { type FormEvent, useState } from "react";
 import permissao from "../services/permissao";
 import type { Permissao } from "../types/Permissao";
+import Botao from "./Botao";
 
 interface PermissaoFormProps {
   onPermissaoSalva: () => void;
@@ -28,23 +29,31 @@ function PermissaoForm({ onPermissaoSalva, permissaoEditando }: PermissaoFormPro
     onPermissaoSalva();
   }
 
+  const campo =
+    "rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none";
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="mb-6 grid gap-3 rounded-lg bg-white p-4 shadow md:grid-cols-3"
+    >
       <input
+        className={campo}
         value={nome}
         onChange={(event) => setNome(event.target.value)}
         placeholder="Nome"
         required
       />
       <input
+        className={campo}
         value={descricao}
         onChange={(event) => setDescricao(event.target.value)}
         placeholder="Descrição"
         required
       />
-      <button type="submit">
+      <Botao type="submit">
         {permissaoEditando ? "Salvar alterações" : "Cadastrar"}
-      </button>
+      </Botao>
     </form>
   );
 }

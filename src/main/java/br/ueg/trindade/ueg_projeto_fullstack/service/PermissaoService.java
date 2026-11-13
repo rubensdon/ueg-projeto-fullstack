@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.ueg.trindade.ueg_projeto_fullstack.model.Permissao;
 import br.ueg.trindade.ueg_projeto_fullstack.model.Usuarios;
 import br.ueg.trindade.ueg_projeto_fullstack.repository.PermissaoRepository;
+import org.springframework.transaction.annotation.Transactional;
 @Service 
 public class PermissaoService{
 
@@ -21,6 +22,13 @@ public class PermissaoService{
         return  permissaoRepository.save(permissao);
 
     }
+
+    //
+    @Transactional(readOnly = true)
+        public List<Permissao> listar() {
+        return permissaoRepository.findAll();
+}
+
     //list(ge all)
     public List<Permissao> listarTodos(){
         return permissaoRepository.findAll();

@@ -1,6 +1,7 @@
 import { type FormEvent, useState } from "react";
 import grupo from "../services/grupo";
 import type { Grupo } from "../types/Grupo";
+import Botao from "./Botao";
 
 interface GrupoFormProps {
 	onGrupoSalvo: () => void;
@@ -36,36 +37,46 @@ function GrupoForm({ onGrupoSalvo, GrupoEditando }: GrupoFormProps) {
 		onGrupoSalvo();
 	}
 
+	const campo =
+		"rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none";
+
 	return (
-		<form onSubmit={handleSubmit}>
+		<form
+			onSubmit={handleSubmit}
+			className="mb-6 grid gap-3 rounded-lg bg-white p-4 shadow md:grid-cols-5"
+		>
 			<input
+				className={campo}
 				value={nome}
 				onChange={(event) => setNome(event.target.value)}
 				placeholder="Nome"
 				required
 			/>
 			<input
+				className={campo}
 				value={descricao}
 				onChange={(event) => setDescricao(event.target.value)}
 				placeholder="Descrição"
 				required
 			/>
 			<input
+				className={campo}
 				type="date"
 				value={datacriacao}
 				onChange={(event) => setDatacriacao(event.target.value)}
 				required
 			/>
 			<input
+				className={campo}
 				type="number"
 				value={idCriador}
 				onChange={(event) => setIdCriador(event.target.value)}
 				placeholder="ID do criador"
 				required
 			/>
-			<button type="submit">
+			<Botao type="submit">
 				{GrupoEditando ? "Salvar alterações" : "Cadastrar"}
-			</button>
+			</Botao>
 		</form>
 	);
 }

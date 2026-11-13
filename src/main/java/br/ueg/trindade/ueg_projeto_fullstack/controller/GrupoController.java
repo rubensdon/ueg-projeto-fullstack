@@ -3,6 +3,7 @@ package br.ueg.trindade.ueg_projeto_fullstack.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,17 +42,20 @@ public class GrupoController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Grupo createGrupo(@RequestBody Grupo grupo){
 
         return grupoService.criar(grupo);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public Grupo updateGrupo(@PathVariable Long id, @RequestBody Grupo dadosGrupo) {
        return grupoService.atualizar(id, dadosGrupo);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteGrupo(@PathVariable Long id){
         grupoService.deletar(id);
     }

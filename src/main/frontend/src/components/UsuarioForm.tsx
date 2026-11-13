@@ -2,6 +2,7 @@
 import { type FormEvent, useState } from "react";
 import api from "../services/usuarios";
 import type { Usuario } from "../types/Usuario";
+import Botao from "./Botao";
 
 interface UsuarioFormProps {
   onUsuarioSalvo: () => void;
@@ -29,31 +30,41 @@ function UsuarioForm({ onUsuarioSalvo, usuarioEditando }: UsuarioFormProps) {
     onUsuarioSalvo();
   }
 
+  const campo =
+    "rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none";
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="mb-6 grid gap-3 rounded-lg bg-white p-4 shadow md:grid-cols-5"
+    >
       <input
+        className={campo}
         value={nome}
         onChange={(e) => setNome(e.target.value)}
         placeholder="Nome"
       />
       <input
+        className={campo}
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         placeholder="Username"
       />
       <input
+        className={campo}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="E-mail"
       />
       <input
+        className={campo}
         value={senha}
         onChange={(e) => setSenha(e.target.value)}
         placeholder="Senha"
       />
-      <button type="submit">
+      <Botao type="submit">
         {usuarioEditando ? "Salvar alterações" : "Cadastrar"}
-      </button>
+      </Botao>
     </form>
   );
 }

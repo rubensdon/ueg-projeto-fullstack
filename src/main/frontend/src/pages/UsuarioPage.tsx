@@ -4,6 +4,7 @@ import usuario from "../services/usuarios";
 import type { Usuario } from "../types/Usuario";
 import UsuarioItem from "../components/UsuarioItem";
 import UsuarioForm from "../components/UsuarioForm";
+import Botao from "../components/Botao";
 
 function UsuarioPage() {
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
@@ -25,8 +26,7 @@ function UsuarioPage() {
   }
   return (
     <div>
-
-            <h1>Criar usuario</h1>
+      <h1 className="mb-4 text-2xl font-bold text-gray-800">Usuários</h1>
 
       <UsuarioForm
         key={editando?.id ?? "novo"}
@@ -37,20 +37,20 @@ function UsuarioPage() {
         }}
       />
 
-      <ul>
-              <h3>Lista de usuario</h3>
-
+      <ul className="divide-y divide-gray-200 rounded-lg bg-white shadow">
         {usuarios.map((usuario) => (
-          <li key={usuario.id}>
+          <li key={usuario.id} className="flex flex-wrap items-center justify-between gap-2 p-4">
             <UsuarioItem usuario={usuario} />
-            <button onClick={() => setEditando(usuario)}>Editar</button>
-            <button onClick={() => excluir(usuario.id)}>Excluir</button>
+            <div className="flex gap-2">
+              <Botao variante="neutro" onClick={() => setEditando(usuario)}>Editar</Botao>
+              <Botao variante="perigo" onClick={() => excluir(usuario.id)}>Excluir</Botao>
+            </div>
           </li>
         ))}
       </ul>
     </div>
   );
-  
+
 /*return (
     <div>
         <h1>Usuários</h1>

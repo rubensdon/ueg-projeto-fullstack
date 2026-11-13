@@ -46,8 +46,12 @@ public class GrupoService {
 
         grupo.setDescricao(grupoAtualizado.getDescricao());
         grupo.setNome(grupoAtualizado.getNome());
-        
-        return grupo;
+        grupo.setDatacriacao(grupoAtualizado.getDatacriacao());
+        if (grupoAtualizado.getIdcriador() != null) {
+            grupo.setIdcriador(grupoAtualizado.getIdcriador());
+        }
+
+        return grupoRepository.save(grupo);
     }
 
     //del

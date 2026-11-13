@@ -1,9 +1,5 @@
-// src/services/api.ts
-import axios from "axios";
-const grupo = axios.create({
-baseURL: "http://localhost:8080"
-,
+// src/services/grupo.ts
+// Usa a instância única do axios, que envia o token (ver api.ts)
+import api from "./api";
 
-});
-export default grupo;
-
+export default api;

@@ -3,6 +3,7 @@ package br.ueg.trindade.ueg_projeto_fullstack.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +21,26 @@ import br.ueg.trindade.ueg_projeto_fullstack.service.UsuarioService;
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/usuarios")
+@PreAuthorize("hasRole('ADMIN')")
 
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
+
+
+     // GET /api/usuarios/{id}/permissoes - permissões atuais do usuário
+    @GetMapping("/{id}/permissoes")
+    public Usuarios getPermissoes(@PathVariable Long id) {
+        return usuarioService.buscarPorId(id);
+    }
+
+    // PUT /api/usuarios/{id}/permissoes - salvar nova seleção (ex.: [1, 2])
+    @PutMapping("/{id}/permissoes")
+    public Usuarios atualizarPermissoes(
+            @PathVariable Long id,
+            @RequestBody List<Long> idsPermissoes) {
+        return usuarioService.atribuirPermissoes(id, idsPermissoes);
+    }
 
     @GetMapping
     public List<Usuarios> getAllUsuarios() {
